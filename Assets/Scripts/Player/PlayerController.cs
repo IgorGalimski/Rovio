@@ -8,9 +8,6 @@ public class PlayerController : IPresenter<PlayerView>
 
     private PlayerView _playerView;
 
-    private readonly int screenWight = Screen.width;
-    private readonly int screenHeight = Screen.height;
-
     public PlayerController()
     {
         playerModel = new PlayerModel(ROTATION_SPEED, MOVEMENT_SPEED);
@@ -37,8 +34,8 @@ public class PlayerController : IPresenter<PlayerView>
         var movementInput = Input.GetAxis("Vertical") * playerModel.MovementSpeed * deltaTime;
         
         var screenPosition = _playerView.transform.position.ToScreen();
-        screenPosition.x = Mathf.Clamp(screenPosition.x, 0f, screenWight);
-        screenPosition.y = Mathf.Clamp(screenPosition.y, 0f, screenHeight);
+        screenPosition.x = Mathf.Clamp(screenPosition.x, 0f, Const.ScreenWight);
+        screenPosition.y = Mathf.Clamp(screenPosition.y, 0f, Const.ScreenHeight);
         _playerView.transform.position = screenPosition.ToWorld();
         
         _playerView.Rotate(rotationInput*Vector3.back);
