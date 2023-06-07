@@ -1,7 +1,7 @@
 using UnityEngine;
 public class PlayerController : IPresenter<PlayerView>
 {
-    private const float ROTATION_SPEED = 75f;
+    private const float ROTATION_SPEED = 150f;
     private const float MOVEMENT_SPEED = 20f;
     
     private readonly PlayerModel playerModel;
@@ -36,10 +36,10 @@ public class PlayerController : IPresenter<PlayerView>
         var rotationInput = Input.GetAxis("Horizontal") * playerModel.RotationSpeed * deltaTime;
         var movementInput = Input.GetAxis("Vertical") * playerModel.MovementSpeed * deltaTime;
         
-        var screenPosition = Const.MainCamera.WorldToScreenPoint(_playerView.transform.position);
+        var screenPosition = _playerView.transform.position.ToScreen();
         screenPosition.x = Mathf.Clamp(screenPosition.x, 0f, screenWight);
         screenPosition.y = Mathf.Clamp(screenPosition.y, 0f, screenHeight);
-        _playerView.transform.position = Const.MainCamera.ScreenToWorldPoint(screenPosition);
+        _playerView.transform.position = screenPosition.ToWorld();
         
         _playerView.Rotate(rotationInput*Vector3.back);
         _playerView.Move(movementInput*Vector3.up);

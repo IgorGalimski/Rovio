@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 public class BulletController : IPresenter<BulletView>
 {
-    private const float SPEED = 10f;
+    private const float SPEED = 50f;
     
     private static readonly TimeSpan destroyDelay = TimeSpan.FromSeconds(5f);
 
